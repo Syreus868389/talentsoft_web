@@ -1,10 +1,8 @@
-from auth_support import get_token
-import requests
-from config import *
+from auth_helper import get_token_talentsoft
 from offer_processor import get_offers, get_direction, OfferProcessor
 import json
 
-token = get_token(client_id=client_id, client_secret=client_secret)
+token = get_token_talentsoft()
 
 offers = get_offers(token, 30)
 
