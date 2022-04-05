@@ -74,7 +74,7 @@ def produce_draft(request):
   
   context['offers'] = offers
   email = render(request,'email.html', context)
-  rendered_email = JsonResponse(email)
+  rendered_email = JsonResponse(email, safe=False)
 
   print(rendered_email)
 
