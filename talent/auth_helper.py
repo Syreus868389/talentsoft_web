@@ -2,6 +2,20 @@ import yaml
 import msal
 import os
 import time
+import environ
+from oauthlib.oauth2 import BackendApplicationClient
+from requests_oauthlib import OAuth2Session
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
+def get_token_talentsoft ():
+    client = BackendApplicationClient(client_id=env('client_id_talentsoft'))
+    oauth = OAuth2Session(client=client)
+    token = oauth.fetch_token(token_url="https://radiofrance-coll.talent-soft.com/api/token", include_client_id=True, client_secret=env('client_secret_talentsoft'))
+
+    return token['access_token']
 
 # Load the oauth_settings.yml file
 stream = open('oauth_settings.yml', 'r')
@@ -23,9 +37,9 @@ def save_cache(request, cache):
 def get_msal_app(cache=None):
   # Initialize the MSAL confidential client
   auth_app = msal.ConfidentialClientApplication(
-    settings['app_id'],
+    env('app_id_office'),
     authority=settings['authority'],
-    client_credential=settings['app_secret'],
+    client_credential=env('app_secret_office'),
     token_cache=cache)
 
   return auth_app
