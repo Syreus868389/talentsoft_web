@@ -1,7 +1,7 @@
 import re
 import string
 from spellchecker import SpellChecker
-from resources import *
+from talent.resources import *
 import requests
 
 spell = SpellChecker(language='fr')

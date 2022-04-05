@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="jumbotron">
+  {% if user.is_authenticated %}
+    <p class="lead">{{draft_response}}</p>
+    {% endif %}
+{% endblock %}

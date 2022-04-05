@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from talent.auth_helper import get_sign_in_flow, get_token_from_code, store_user, remove_user_and_token, get_token
 from talent.graph_helper import *
 from django.urls import reverse
+from talent.auth_helper import get_token_talentsoft
+from talent.offer_processor import get_offers, get_direction, OfferProcessor
+from django.template.response import TemplateResponse
 
 # Create your views here.
 
@@ -52,3 +55,34 @@ def sign_out(request):
   remove_user_and_token(request)
 
   return HttpResponseRedirect(reverse('home'))
+
+def produce_draft(request):
+  context = initialize_context(request)
+
+  token_talentsoft = get_token_talentsoft()
+
+  offers_base = get_offers(token_talentsoft, 30)
+
+  offers = {}
+
+  for offer in offers_base:
+      direction = get_direction(offer)
+  
+      offer = OfferProcessor(offer['title'], direction, offer['offerUrl'])
+      offer.offer_cleaner()
+      offers.setdefault(offer.cat, []).append(offer)
+  
+  context['offers'] = offers
+  email = render(request,'email.html', context)
+  rendered_email = JsonResponse(email)
+
+  print(rendered_email)
+
+  token = get_token(request)
+
+  draft_response = save_draft(token, rendered_email)
+
+  context['draft_response'] = draft_response
+
+  return render(request, 'response.html', context)
+

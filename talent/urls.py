@@ -8,5 +8,6 @@ urlpatterns = [
   # TEMPORARY
   path('signin', views.sign_in, name='signin'),
   path('callback', views.callback, name='callback'),
-  path('signout', views.sign_out, name='signout')
+  path('signout', views.sign_out, name='signout'),
+  path('texto', views.produce_draft, name='texto')
 ]

@@ -4,6 +4,7 @@
   {% if user.is_authenticated %}
     <h4>Bienvenue {{ user.name }}!</h4>
     <p class="lead">Cette application vous permet de générer un Texto Emploi, dans les brouillons de la boîte Texto Flash-Info.</p>
+    <a href = "{% url 'texto' %}" class="btn btn-primary btn-large">Générer le texto</a>
   {% else %}
   <p class="lead">Cette application vous permet de générer un Texto Emploi, dans les brouillons de la boîte Texto Flash-Info.</p>
     <a href="{% url 'signin' %}" class="btn btn-primary btn-large">Cliquez ici pour vous connecter</a>
