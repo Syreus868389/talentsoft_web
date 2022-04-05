@@ -4,12 +4,14 @@ import json
 
 token = get_token_talentsoft()
 
-offers = get_offers(token, 30)
+offers_base = get_offers(token, 30)
 
-for offer in offers:
+offers = {}
+
+for offer in offers_base:
     direction = get_direction(offer)
 
     offer = OfferProcessor(offer['title'], direction, offer['offerUrl'])
     offer.offer_cleaner()
-    print(offer.color)
+    offers.setdefault(offer.cat, []).append(offer)
     
