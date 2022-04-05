@@ -59,7 +59,7 @@ class OfferProcessor:
     def __init__(self, original_offer_title, original_offer_direction, original_offer_url):
         self.title = original_offer_title.lower()
         self.direction = original_offer_direction.lower()
-        self.offer_url = original_offer_url
+        self.url = original_offer_url
 
     def offer_cleaner(self):
         service = ""
