@@ -4,6 +4,10 @@ from spellchecker import SpellChecker
 from talent.resources import *
 import requests
 from talent.auth_helper import get_token_talentsoft
+from rq import Queue
+from worker import conn
+
+q = Queue(connection=conn)
 
 spell = SpellChecker(language='fr')
 
@@ -202,7 +206,7 @@ class OfferProcessor:
 def get_offers():
 
     token_talentsoft = get_token_talentsoft()
-    offers_base = get_offers_base(token_talentsoft, 30)
+    offers_base = q.enqueue(get_offers_base, token_talentsoft, 30)
     offers_france_bleu = {}
     offers_paris = {}
     for offer in offers_base:

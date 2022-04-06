@@ -7,6 +7,7 @@ from talent.offer_processor import get_offers
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 
+
 # Create your views here.
 
 def initialize_context(request):
