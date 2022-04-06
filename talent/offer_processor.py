@@ -5,7 +5,7 @@ from talent.resources import *
 import requests
 from talent.auth_helper import get_token_talentsoft
 from rq import Queue
-from worker import conn
+from talent.worker import conn
 
 q = Queue(connection=conn)
 
