@@ -15,7 +15,9 @@ import environ
 import dj_database_url
 
 # Initialise environment variables
-env = environ.Env()
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,13 +27,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m6i1-7r9aig#apf8cj6v9)x(l^jy$%#zaff&e_%ty14ka==9g7'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['eltalentsoftero.herokuapp.com']
+# False if not in os.environ
+DEBUG = env('DEBUG')
+
+# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
+SECRET_KEY = env('SECRET_KEY')
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -81,19 +86,8 @@ WSGI_APPLICATION = 'talentsoft_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES={
-   'default':{
-      'ENGINE':'django.db.backends.postgresql',
-      'NAME':'postgres',
-      'USER':'postgres',
-      'PASSWORD': env('db_password'),
-      'HOST':'localhost',
-      'PORT':'5432',
-   }
-}
-
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 
 # Password validation
