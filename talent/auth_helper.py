@@ -1,4 +1,3 @@
-import yaml
 import msal
 import os
 import time
@@ -16,10 +15,6 @@ def get_token_talentsoft ():
     token = oauth.fetch_token(token_url="https://radiofrance-coll.talent-soft.com/api/token", include_client_id=True, client_secret=env('client_secret_talentsoft'))
 
     return token['access_token']
-
-# Load the oauth_settings.yml file
-stream = open('oauth_settings.yml', 'r')
-settings = yaml.load(stream, yaml.SafeLoader)
 
 def load_cache(request):
   # Check for a token cache in the session
