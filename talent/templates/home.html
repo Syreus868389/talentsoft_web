@@ -1,10 +1,25 @@
 {% extends "layout.html" %}
+{% block header %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#texto").click(function(){
+      $("#texto").hide();
+      $(".loading").css("display", "block");
+    });
+  });
+  </script>
+
+{% endblock %}
+
 {% block content %}
 <div class="jumbotron">
   {% if user.is_authenticated %}
     <h4>Bienvenue {{ user.name }}!</h4>
     <p class="lead">Cette application vous permet de générer un Texto Emploi, dans les brouillons de la boîte Texto Flash-Info.</p>
-    <a href = "{% url 'texto' %}" class="btn btn-primary btn-large">Générer le texto</a>
+    <span class="loading">
+    </span>
+    <a id="texto" href = "{% url 'texto' %}" class="btn btn-primary btn-large">Générer le texto</a>
   {% else %}
   <p class="lead">Cette application vous permet de générer un Texto Emploi, dans les brouillons de la boîte Texto Flash-Info.</p>
     <a href="{% url 'signin' %}" class="btn btn-primary btn-large">Cliquez ici pour vous connecter</a>

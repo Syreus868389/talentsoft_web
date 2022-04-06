@@ -3,12 +3,13 @@ import string
 from spellchecker import SpellChecker
 from talent.resources import *
 import requests
+from talent.auth_helper import get_token_talentsoft
 
 spell = SpellChecker(language='fr')
 
 spell.word_frequency.load_words(valid)
 
-def get_offers(token, count):
+def get_offers_base(token, count):
     offers = []
     headers = {'Content-Type' :'application/json; charset=utf-8','Authorization' : f'Bearer {token}'}
     url = f"https://radiofrance-coll.talent-soft.com/api/v2/offersummaries?count={count}"
@@ -47,7 +48,8 @@ def article_lowcaser(text):
 
 def highcaser(text, list, all_caps = False):
     for word in list:
-        if word in text:
+        exact_word = " " + word + " "
+        if exact_word in text:
             if all_caps: 
                 text = text.replace(word, word.upper())
             else:
@@ -162,9 +164,9 @@ class OfferProcessor:
             direction = article_lowcaser(direction)
         
         else:
-            direction = direction.capitalize()
             direction = highcaser(direction, capital)
             direction = highcaser(direction, syndicats, all_caps=True)
+            direction = direction[0].upper() + direction[1:]
             
         self.title = text
         self.direction = direction
@@ -185,7 +187,7 @@ class OfferProcessor:
         if len(cat) == 1:
             color = black
         
-        elif len(cat) > 1 and cat[0] != cat[1]:
+        elif len(cat) > 1:
             color = red
      
         else:
@@ -196,5 +198,22 @@ class OfferProcessor:
 
         self.cat = cat
         self.color = color
+
+def get_offers():
+
+    token_talentsoft = get_token_talentsoft()
+    offers_base = get_offers_base(token_talentsoft, 30)
+    offers_france_bleu = {}
+    offers_paris = {}
+    for offer in offers_base:
+        direction = get_direction(offer)
+        offer = OfferProcessor(offer['title'], direction, offer['offerUrl'])
+        offer.offer_cleaner()
+        if offer.france_bleu:
+          offers_france_bleu.setdefault(offer.cat, []).append(offer)
+        else:
+          offers_paris.setdefault(offer.cat, []).append(offer)
+    return [offers_paris, offers_france_bleu]
+    
 
 

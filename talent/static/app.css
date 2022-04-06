@@ -1,3 +1,32 @@
+  .loading {
+    width: 2px;
+    height: 2px;
+    display: none;
+    position: relative;
+    border-radius: 50%;
+    background: #fff;
+    margin-top: 3rem!important;
+    margin: 0 auto;
+    animation: wave 1s ease-in infinite;
+  }
+  
+  @keyframes wave {
+  0% {  box-shadow:
+  0 0 0 0px rgba(40, 52, 147, 1),
+  0 0 0 10px rgba(40, 52, 147, 0.2),
+  0 0 0 20px rgba(40, 52, 147, 0.6),
+  0 0 0 30px rgba(40, 52, 147, 0.4),
+  0 0 0 40px rgba(40, 52, 147, 0.2)
+  }
+  100% {  box-shadow:
+    0 0 0 40px rgba(40, 52, 147, 0.2),
+    0 0 0 30px rgba(40, 52, 147, 0.4),
+    0 0 0 20px rgba(40, 52, 147, 0.6),
+    0 0 0 10px rgba(40, 52, 147, 0.2),
+    0 0 0 0px rgba(40, 52, 147, 1)
+  }
+  }
+
 body {
     padding-top: 4.5rem;
   }
@@ -16,3 +45,8 @@ body {
     padding-top: 4px;
     padding-bottom: 4px;
   }
+
+
+  
+  
+    

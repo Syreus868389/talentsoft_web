@@ -29,37 +29,44 @@ def save_draft(token, body):
         {
           "@odata.type": "#microsoft.graph.fileAttachment",
           "name": "flash_info",
-          "contentBytes": base64_images['flash_info']
+          "contentId": "flash_info",
+          "contentBytes": base64_images['flash_info'],
+          "isInline" : True
         },
         {
           "@odata.type": "#microsoft.graph.fileAttachment",
           "name": "paris",
-          "contentBytes": base64_images['paris']
+          "contentId": "paris",
+          "contentBytes": base64_images['paris'],
+          "isInline" : True
         },
         {
           "@odata.type": "#microsoft.graph.fileAttachment",
           "name": "region",
-          "contentBytes": base64_images['region']
+          "contentId": "region",
+          "contentBytes": base64_images['region'],
+          "isInline" : True
         },
         {
           "@odata.type": "#microsoft.graph.fileAttachment",
           "name": "rf_long",
-          "contentBytes": base64_images['rf_long']
-        },
-        {
-          "@odata.type": "#microsoft.graph.fileAttachment",
-          "name": "rf",
-          "contentBytes": base64_images['rf']
+          "contentId": "rf_long",
+          "contentBytes": base64_images['rf_long'],
+          "isInline" : True
         },
         {
           "@odata.type": "#microsoft.graph.fileAttachment",
           "name": "square",
-          "contentBytes": base64_images['square']
+          "contentId": "square",
+          "contentBytes": base64_images['square'],
+          "isInline" : True
         },
         {
           "@odata.type": "#microsoft.graph.fileAttachment",
           "name": "texto",
-          "contentBytes": base64_images['texto']
+          "contentId": "texto",
+          "contentBytes": base64_images['texto'],
+          "isInline" : True
         }
       ]
   }

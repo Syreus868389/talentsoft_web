@@ -8,8 +8,8 @@ replaced = ["parl", "assistante"]
 replacements = ["PARL", "assistant"]
 france_bleu_words = ["montbéliard", "ardenne", "orne", "eure","étienne"]
 articles = ["un", "une", "le", "la", "les", "aux", "du", "des", "à", "de", "d'", "et"]
-capital = ["radio france", "philharmonique", "orchestre national de france"]
-syndicats = ["CGT", "CFDT", "SUD", "UNSA", "SNJ", "FO"]
+capital = ["radio france", "philharmonique", "orchestre national de france", "france culture", "france inter", "france musique", "mouv'", "france bleu"]
+syndicats = ["cgt", "cfdt", "sud", "unsa", "snj", "fo", "rh", "dtsi", "dpa"]
 
 bleus = ["Alsace", "Armorique", "Auxerre", "Azur", "Béarn", "Bigorre", "Belfort-Montbéliard", "Berry", "Besançon", "Bourgogne", "Breizh Izel", "Champagne-Ardenne", "Cotentin", "Creuse", "Drôme Ardèche", "Elsass", "Gard Lozère", "Gascogne", "Gironde", "Hérault", "Isère", "La Rochelle", "Limousin", "Loire", "Océan", "Lorraine", "Nord", "Maine", "Mayenne", "Nord","Calvados", "Orne", "Normandie", "Seine-Maritime", "Eure", "Occitanie", "Orléans", "Paris", "Pays Basque", "Pays d'\Auvergne", "Pays de Savoie", "Périgord", "Picardie", "Poitou", "Provence", "RCFM", "Roussillon","Saint-Étienne", "Loire", "Sud", "Lorraine", "Touraine", "Vaucluse", "France Bleu", "FB", "Rouen", "Caen"]
 

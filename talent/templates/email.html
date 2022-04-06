@@ -208,50 +208,50 @@ ul
         <span style="font-size:12.0pt; line-height:105%">
         </span>
        </p>
+       <span style='font-size:9.0pt;line-height:70%'><o:p>&nbsp</o:p></span>
+        {% for key, values in offers_paris.items %}
 
-        {% for key, values in offers.items %}
+            <p class=xxxmsonormal style='margin-left:17.85pt;text-align:justify;
+            text-indent:-17.85pt;line-height:105%;background:
+            #F2F2F2'>
+            <span style='font-size:14.0pt;mso-bidi-font-size:
+            12.0pt;line-height:105%'>
+                <span>
+                    <img width=17 height=17 src="cid:square" alt="*">
+                    <span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>
+                </span>
+            </span>
 
-            <p class="xxxmsonormal" style="margin-left:17.85pt; text-align:justify; text-indent:-17.85pt; line-height:105%; background:#F2F2F2">
-             <span style="font-size:14.0pt; line-height:105%; font-family:Symbol">
-              <span style="mso-list:Ignore">
-               <img alt="Puce" height="20" src="cid:square" width="23"/>
-               <span style='font:7.0pt "Calibri"'>
-               </span>
-              </span>
-             </span>
-             <b>
-              <span style="color:#283493">
-               {{key}}
-              </span>
-             </b>
-             <span style="font-size:12.0pt; line-height:105%">
-             </span>
+            <b>
+                <span style='color:#283493'>
+                    {{key}}
+                </span>
+            </b>
+            <span style='font-size:12.0pt;line-height:105%'><o:p></o:p></span>
             </p>
         
             <ul style="margin-top:0cm" type="disc">
                 {% for offer in values %}
-                     {% if not offer.france_bleu %}
-                         <li class="MsoNormal" style="color:#1F497D; text-align:justify; line-height:105%">
-                          <b>
-                           <span style="color:black">
-                            <a href={{offer.url}}>
-                             <span style="color:{{offer.color}}; text-decoration:none">
-                              {{offer.title}}
-                             </span>
-                            </a>
-                           </span>
-                          </b>
-                          <span style="{{offer.color}}">
-                           {{offer.direction}}
-                          </span>
-                         </li>
-                     
-                     {% endif %}
-                     
-                 {% endfor %}
-             </ul>
+                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                     <b>
+                      <span style="color:black">
+                       <a href={{offer.url}}>
+                        <span style="color:{{offer.color}}; text-decoration:none">
+                         {{offer.title}}
+                        </span>
+                       </a>
+                      </span>
+                     </b>
+                     <span style="color:{{offer.color}}">
+                      - {{offer.direction}}
+                     </span>
+                    </li>
 
-            {% endfor %} 
+                {% endfor %}
+            </ul>
+
+        {% endfor %} 
+        <span style='font-size:12.0pt;line-height:70%'><o:p>&nbsp</o:p></span>
 
     <p class="MsoNormal" style="text-align:justify; line-height:105%">
     </p>
@@ -285,50 +285,51 @@ ul
         <span style="font-size:12.0pt; line-height:105%">
         </span>
        </p>
+       <span style='font-size:9.0pt;line-height:70%'><o:p>&nbsp</o:p></span>
+        {% for key, values in offers_france_bleu.items %}
 
-        {% for key, values in offers.items %}
-
-            <p class="xxxmsonormal" style="margin-left:17.85pt; text-align:justify; text-indent:-17.85pt; line-height:105%; background:#F2F2F2">
-             <span style="font-size:14.0pt; line-height:105%; font-family:Symbol">
-              <span style="mso-list:Ignore">
-               <img alt="Puce" height="20" src="cid:square" width="23"/>
-               <span style='font:7.0pt "Calibri"'>
-               </span>
-              </span>
-             </span>
-             <b>
-              <span style="color:#283493">
-               {{key}}
-              </span>
-             </b>
-             <span style="font-size:12.0pt; line-height:105%">
-             </span>
+                <p class=xxxmsonormal style='margin-left:17.85pt;text-align:justify;
+                text-indent:-17.85pt;line-height:105%;background:
+                #F2F2F2'>
+                <span style='font-size:14.0pt;mso-bidi-font-size:
+                12.0pt;line-height:105%'>
+                    <span>
+                        <img width=17 height=17 src="cid:square" alt="*">
+                        <span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>
+                    </span>
+                </span>
+                
+                <b>
+                    <span style='color:#283493'>
+                        {{key}}
+                    </span>
+                </b>
+                <span style='font-size:12.0pt;line-height:105%'><o:p></o:p></span>
             </p>
           
             <ul style="margin-top:0cm" type="disc">
                 {% for offer in values %}
-                     {% if offer.france_bleu %}
-                         <li class="MsoNormal" style="color:#1F497D; text-align:justify; line-height:105%">
-                          <b>
-                           <span style="color:black">
-                            <a href={{offer.url}}>
-                             <span style="color:{{offer.color}}; text-decoration:none">
-                              {{offer.title}}
-                             </span>
-                            </a>
-                           </span>
-                          </b>
-                          <span style="{{offer.color}}">
-                           {{offer.direction}}
-                          </span>
-                         </li>
-                       
-                     {% endif %}
-                       
+                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                     <b>
+                      <span style="color:black">
+                       <a href={{offer.url}}>
+                        <span style="color:{{offer.color}}; text-decoration:none">
+                         {{offer.title}}
+                        </span>
+                       </a>
+                      </span>
+                     </b>
+                     <span style="color:{{offer.color}}">
+                      - {{offer.direction}}
+                     </span>
+                    </li>
+                    
                  {% endfor %}
              </ul>
 
             {% endfor %} 
+    
+    <span style='font-size:12.0pt;line-height:70%'><o:p>&nbsp</o:p></span>
 
     <p class="MsoNormal" style="text-align:justify; line-height:105%">
     </p>
@@ -348,8 +349,16 @@ ul
    </tr>
    <tr style="height:.9pt">
     <td colspan="2" style="background:white; padding:.75pt .75pt .75pt .75pt; height:.9pt">
-     <ul type="disc">
-      <li class="MsoNormal" style="text-align:justify; line-height:105%; background:white">
+        <p class=xxxmsonormal style='margin-left:17.85pt;text-align:justify;
+        text-indent:-17.85pt;line-height:105%;background:
+        #ffffff'>
+        <span style='font-size:14.0pt;mso-bidi-font-size:
+        12.0pt;line-height:105%'>
+            <span>
+                <img width=17 height=17 src="cid:square" alt="*">
+                <span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>
+            </span>
+        </span>
        <b>
         <span style="color:#283493">
          Vous pouvez consulter les fiches détaillées de ces postes en cliquant dessus
@@ -368,15 +377,22 @@ ul
        </span>
        <span style="">
        </span>
-      </li>
-     </ul>
+    </p>
      <p style="margin-left:18.0pt; text-align:justify; line-height:105%; background:white">
       <span style='font-size:11.0pt; line-height:105%; font-family:"Calibri",sans-serif; color:black; border:none windowtext 1.0pt; padding:0cm'>
        Vos correspondants RH sont à votre disposition pour évaluer les possibles et définir un accompagnement adapté pour vous permettre de remplir les attendus du poste.
       </span>
      </p>
-     <ul type="disc">
-      <li class="MsoNormal" style="margin-bottom:12.0pt; text-align:justify; line-height:105%; background:white">
+     <p class=xxxmsonormal style='margin-left:17.85pt;text-align:justify;
+        text-indent:-17.85pt;line-height:105%;background:
+        #ffffff'>
+        <span style='font-size:14.0pt;mso-bidi-font-size:
+        12.0pt;line-height:105%'>
+            <span>
+                <img width=17 height=17 src="cid:square" alt="*">
+                <span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span>
+            </span>
+        </span>
        <b>
         <span style="color:#283493">
          Les contacts en cas de difficultés d’accès aux offres
@@ -384,8 +400,8 @@ ul
        </b>
        <span style="">
        </span>
-      </li>
-     </ul>
+    </p>
+
      <ul type="disc">
       <li class="xxxmsonormal" style="line-height:105%; background:white">
        <span style="color:black">
@@ -520,7 +536,7 @@ ul
    <tr style="height:40.55pt">
     <td colspan="2" style="padding:.75pt .75pt .75pt .75pt; height:40.55pt">
      <p align="right" class="xxmsonormal" style="text-align:right; line-height:105%">
-      <img border="0" height="30" id="Image_x0020_3" src="cid:rf_long" alt='Logo RF' style="width:1.5902in; height:.3125in" width="153"/>
+      <img border="0" height="30" id="Image_x0020_3" src="cid:rf_long" alt='Logo_RF' style="width:1.5902in; height:.3125in" width="153"/>
       <b>
        <span style='font-size:20.0pt; line-height:105%; font-family:"Calibri",sans-serif; color:#283493'>
        </span>

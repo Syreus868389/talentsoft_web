@@ -3,9 +3,9 @@ from django.http import HttpResponseRedirect, JsonResponse
 from talent.auth_helper import get_sign_in_flow, get_token_from_code, store_user, remove_user_and_token, get_token
 from talent.graph_helper import *
 from django.urls import reverse
-from talent.auth_helper import get_token_talentsoft
-from talent.offer_processor import get_offers, get_direction, OfferProcessor
-from django.template.response import TemplateResponse
+from talent.offer_processor import get_offers
+from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -58,31 +58,22 @@ def sign_out(request):
 
 def produce_draft(request):
   context = initialize_context(request)
+  user = context['user']
 
-  token_talentsoft = get_token_talentsoft()
+  if user['is_authenticated']:
+    offers = get_offers()
+    context['offers_france_bleu'] = offers[0]
+    context['offers_paris'] = offers[1]
+    email = render_to_string('email.html', context=context)
+    token = get_token(request)
+    draft_response = save_draft(token, email)
 
-  offers_base = get_offers(token_talentsoft, 30)
+    context['draft_response'] = json.loads(draft_response)
 
-  offers = {}
+    return render(request, 'response.html', context)
 
-  for offer in offers_base:
-      direction = get_direction(offer)
+  else:
+    return render(request, '404.html')
+
   
-      offer = OfferProcessor(offer['title'], direction, offer['offerUrl'])
-      offer.offer_cleaner()
-      offers.setdefault(offer.cat, []).append(offer)
-  
-  context['offers'] = offers
-  email = render(request,'email.html', context)
-  rendered_email = JsonResponse(email, safe=False)
-
-  print(rendered_email)
-
-  token = get_token(request)
-
-  draft_response = save_draft(token, rendered_email)
-
-  context['draft_response'] = draft_response
-
-  return render(request, 'response.html', context)
 
