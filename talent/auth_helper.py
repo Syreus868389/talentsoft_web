@@ -1,6 +1,7 @@
 import msal
 import os
 import time
+import yaml
 import environ
 from oauthlib.oauth2 import BackendApplicationClient
 from requests_oauthlib import OAuth2Session
@@ -8,6 +9,10 @@ from requests_oauthlib import OAuth2Session
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
+
+# Load the oauth_settings.yml file
+stream = open('oauth_settings.yml', 'r')
+settings = yaml.load(stream, yaml.SafeLoader)
 
 def get_token_talentsoft ():
     client = BackendApplicationClient(client_id=env('client_id_talentsoft'))
@@ -45,7 +50,7 @@ def get_sign_in_flow():
 
   return auth_app.initiate_auth_code_flow(
     settings['scopes'],
-    redirect_uri=settings['redirect'])
+    redirect_uri=env('redirect_office'))
 
 # Method to exchange auth code for access token
 def get_token_from_code(request):
