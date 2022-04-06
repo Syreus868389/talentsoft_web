@@ -1,1 +1,1 @@
-web: gunicorn talentsoft_web.wsgi --log-file --
+web: gunicorn talentsoft_web.wsgi
