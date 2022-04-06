@@ -3,10 +3,8 @@ from django.http import HttpResponseRedirect, JsonResponse
 from talent.auth_helper import get_sign_in_flow, get_token_from_code, store_user, remove_user_and_token, get_token
 from talent.graph_helper import *
 from django.urls import reverse
-from talent.offer_processor import get_offers
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-
 
 # Create your views here.
 
@@ -62,7 +60,10 @@ def produce_draft(request):
   user = context['user']
 
   if user['is_authenticated']:
-    offers = get_offers()
+
+    with open('generated_offers.json') as json_file:
+      offers = json.load(json_file)
+    
     context['offers_france_bleu'] = offers[0]
     context['offers_paris'] = offers[1]
     email = render_to_string('email.html', context=context)

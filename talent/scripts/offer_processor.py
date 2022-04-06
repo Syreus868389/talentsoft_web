@@ -4,10 +4,7 @@ from spellchecker import SpellChecker
 from talent.resources import *
 import requests
 from talent.auth_helper import get_token_talentsoft
-from rq import Queue
-from talent.worker import conn
-
-q = Queue(connection=conn)
+import json
 
 spell = SpellChecker(language='fr')
 
@@ -203,21 +200,30 @@ class OfferProcessor:
         self.cat = cat
         self.color = color
 
+        offer={"color": self.color, "postes": self.postes, "mob": self.mob, "url": self.url, "title": self.title, "direction": self.direction}
+
+        return offer
+
 def get_offers():
 
     token_talentsoft = get_token_talentsoft()
-    offers_base = q.enqueue(get_offers_base, token_talentsoft, 30)
+    offers_base = get_offers_base(token_talentsoft, 30)
     offers_france_bleu = {}
     offers_paris = {}
     for offer in offers_base:
         direction = get_direction(offer)
         offer = OfferProcessor(offer['title'], direction, offer['offerUrl'])
-        offer.offer_cleaner()
+        cleaned_offer = offer.offer_cleaner()
         if offer.france_bleu:
-          offers_france_bleu.setdefault(offer.cat, []).append(offer)
+          offers_france_bleu.setdefault(offer.cat, []).append(cleaned_offer)
         else:
-          offers_paris.setdefault(offer.cat, []).append(offer)
+          offers_paris.setdefault(offer.cat, []).append(cleaned_offer)
     return [offers_paris, offers_france_bleu]
+
+def run():
+    offers = get_offers()
+    with open('generated_offers.json', 'w') as file:
+        json.dump(offers, file)
     
 
 
