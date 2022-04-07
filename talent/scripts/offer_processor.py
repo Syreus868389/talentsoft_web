@@ -222,7 +222,6 @@ def get_offers():
 
 def run():
     offers = get_offers()
-    print(offers)
     with open('talent/generated_offers.json', 'w') as file:
         json.dump(offers, file)
     
