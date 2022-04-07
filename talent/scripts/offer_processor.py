@@ -72,7 +72,7 @@ class OfferProcessor:
         text = self.title
         direction = self.direction
 
-        if "france bleu" in direction:
+        if "france bleu" in direction or "région" in direction:
             france_bleu = True
 
         if ":" in text:
