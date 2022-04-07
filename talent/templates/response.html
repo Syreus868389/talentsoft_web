@@ -2,6 +2,7 @@
 {% block content %}
 <div class="jumbotron">
   {% if user.is_authenticated %}
+  <p class="lead">Les offres en rouge sont à vérifier.</p>
     <a href="{{ draft_response.webLink }}" class="btn btn-primary btn-large">Accéder au brouillon</a>
     {% endif %}
 {% endblock %}

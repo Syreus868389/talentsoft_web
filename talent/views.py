@@ -60,19 +60,24 @@ def produce_draft(request):
   user = context['user']
 
   if user['is_authenticated']:
+    referer = request.META.get('HTTP_REFERER')
+    if referer == request.build_absolute_uri('/'):
 
-    with open('talent/generated_offers.json') as json_file:
-      offers = json.load(json_file)
+      with open('talent/generated_offers.json') as json_file:
+        offers = json.load(json_file)
+
+      context['offers_france_bleu'] = offers[0]
+      context['offers_paris'] = offers[1]
+      email = render_to_string('email.html', context=context)
+      token = get_token(request)
+      draft_response = save_draft(token, email)
+
+      context['draft_response'] = json.loads(draft_response)
+
+      return render(request, 'response.html', context)
     
-    context['offers_france_bleu'] = offers[0]
-    context['offers_paris'] = offers[1]
-    email = render_to_string('email.html', context=context)
-    token = get_token(request)
-    draft_response = save_draft(token, email)
-
-    context['draft_response'] = json.loads(draft_response)
-
-    return render(request, 'response.html', context)
+    else:
+      return render(request, '404.html')
 
   else:
     return render(request, '404.html')
