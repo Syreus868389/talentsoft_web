@@ -61,7 +61,7 @@ def produce_draft(request):
 
   if user['is_authenticated']:
 
-    with open('talent/static/generated_offers.json') as json_file:
+    with open('talent/generated_offers.json') as json_file:
       offers = json.load(json_file)
     
     context['offers_france_bleu'] = offers[0]
