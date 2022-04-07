@@ -2,7 +2,7 @@ black = "#000000"
 blue = "#283493"
 red = "#FF0000"
 
-suffixes = ["e", "ice", "trice", "rice", "euse", "se"]
+suffixes = ["e", "ice", "trice", "rice", "euse", "se", "dtsi"]
 punctuation = [".", "-", "·"]
 replaced = ["parl", "assistante"]
 replacements = ["PARL", "assistant"]
