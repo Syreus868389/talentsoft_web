@@ -18,7 +18,7 @@ valid = bleus + ["parl", "audiovisuels", "radiophoniques", "matinalier", "FB", "
 labels = {"Technologie (ingénierie, maintenance et supports techniques)" : ["maintenance", "réseau", "télécom", "informatique", "systèmes", "assistance", "machinerie", "technologies", "développeur", "offres numériques"],
 "Exploitation des moyens audiovisuels (technique)" : ["technicien supérieur du son", "technicien du son", "sonoris", "DPAV", "image", "reportage", "montage", "monteur", "responsable technique"],
 "Production et suivi de programmes/information (production et coordination des moyens, numérique, documentation)" : ["production", "document", "biblio", "planificat", "programmes", "édition multimédia", "édition web", "création", "régisseur de production","régisseur formation musicale", "photographie", "éclairage"],
-"Communication - Marketing" : ["communication", "presse", "partenariats", "médias", "réseaux sociaux", "publicité", "relations auditeurs", "média vendeur", "chargé d'études"],
+"Communication - Marketing" : ["communication", "presse", "partenariats", "médias", "réseaux sociaux", "publicité", "relations auditeurs", "média vendeur", "chargé d'études", "community manager"],
 "Animation radio" : ["parl", "animateur"],
 "Gestion d’entreprise (gestion, comptabilité et finance, RH, juridique, achat, développement des ressources)" : ["directeur de radio locale", "gestion", "administrati", "paie", "personnels", "accueil", "audit", "assistant de direction", "contrat", "finances", "ressources humaines", "RH"],
 "Journalisme" : ["journaliste", "matinalier", "rédacteur en chef", "secrétaire de rédaction", "présentateur"],
