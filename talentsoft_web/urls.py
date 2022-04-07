@@ -20,4 +20,5 @@ from talent import views
 urlpatterns = [
     path('', include('talent.urls')),
     path('admin/', admin.site.urls),
+    (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': 'talent/static/favicon.ico'}),
 ]
