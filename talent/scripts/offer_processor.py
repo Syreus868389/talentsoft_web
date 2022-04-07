@@ -49,7 +49,7 @@ def article_lowcaser(text):
 
 def highcaser(text, list, all_caps = False):
     for word in list:
-        match = re.match(r'(?<=\s|\W){0}(?=\s|\W)'.format(word), text)
+        match = re.search(r'\b{0}\b'.format(word), text)
         if match:
             if all_caps: 
                 text = text.replace(word, word.upper())
