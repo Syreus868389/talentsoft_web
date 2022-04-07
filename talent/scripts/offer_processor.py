@@ -218,7 +218,7 @@ def get_offers():
           offers_france_bleu.setdefault(offer.cat, []).append(cleaned_offer)
         else:
           offers_paris.setdefault(offer.cat, []).append(cleaned_offer)
-    return [offers_paris, offers_france_bleu]
+    return {"offers_paris": offers_paris, "offers_france_bleu": offers_france_bleu}
 
 def run():
     offers = get_offers()

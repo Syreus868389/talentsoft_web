@@ -66,8 +66,8 @@ def produce_draft(request):
       with open('talent/generated_offers.json') as json_file:
         offers = json.load(json_file)
 
-      context['offers_france_bleu'] = offers[0]
-      context['offers_paris'] = offers[1]
+      context['offers_france_bleu'] = offers['offers_france_bleu']
+      context['offers_paris'] = offers['offers_france_bleu']
       email = render_to_string('email.html', context=context)
       token = get_token(request)
       draft_response = save_draft(token, email)
