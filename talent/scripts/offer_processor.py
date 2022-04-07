@@ -222,7 +222,7 @@ def get_offers():
 
 def run():
     offers = get_offers()
-    with open('generated_offers.json', 'w') as file:
+    with open('talent/static/generated_offers.json', 'w') as file:
         json.dump(offers, file)
     
 
