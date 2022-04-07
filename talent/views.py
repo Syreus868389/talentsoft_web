@@ -67,7 +67,7 @@ def produce_draft(request):
         offers = json.load(json_file)
 
       context['offers_france_bleu'] = offers['offers_france_bleu']
-      context['offers_paris'] = offers['offers_france_bleu']
+      context['offers_paris'] = offers['offers_paris']
       email = render_to_string('email.html', context=context)
       token = get_token(request)
       draft_response = save_draft(token, email)
