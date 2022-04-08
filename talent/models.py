@@ -17,3 +17,4 @@ class OfferFranceBleu(models.Model):
     postes = models.CharField(max_length=300)
     mob = models.CharField(max_length=300)
     direction = models.CharField(max_length=300)
+    ville = models.CharField(max_length=300)

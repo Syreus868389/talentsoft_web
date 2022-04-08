@@ -205,7 +205,8 @@ ul
      <tr style="height:27.85pt">
       <td colspan="2" style="background:#F2F2F2; padding:.75pt .75pt .75pt .75pt; height:27.85pt">
        <span style='font-size:9.0pt;line-height:105%'><o:p>&nbsp</o:p></span>
-        {% for key, values in offers_paris.items %}
+
+        {% for key,values in offers_paris.items %}
 
             <p class=xxxmsonormal style='margin-left:17.85pt;text-align:justify;
             text-indent:-17.85pt;line-height:105%;background:
@@ -228,20 +229,76 @@ ul
         
             <ul style="margin-top:0cm" type="disc">
                 {% for offer in values %}
+
+                    {% if not offer.mob and not offer.postes %}
+
                     <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
-                     <b>
-                      <span style="color:black">
-                       <a href={{offer.url}}>
-                        <span style="color:{{offer.color}}; text-decoration:none">
-                         {{offer.title}}
+                        <b>
+                         <span style="color:black">
+                          <a href={{offer.url}}>
+                           <span style="color:{{offer.color}}; text-decoration:none">
+                            {{offer.title}}
+                           </span>
+                          </a>
+                         </span>
+                        </b>
+                        <span style="color:{{offer.color}}">
+                         - {{offer.direction}}
                         </span>
-                       </a>
-                      </span>
-                     </b>
-                     <span style="color:{{offer.color}}">
-                      - {{offer.direction}}
-                     </span>
-                    </li>
+                       </li>
+
+                    {% elif offer.mob and not offer.postes %}
+
+                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                        <b>
+                         <span style="color:black">
+                          <a href={{offer.url}}>
+                           <span style="color:{{offer.color}}; text-decoration:none">
+                            Mobilité - {{offer.title}}
+                           </span>
+                          </a>
+                         </span>
+                        </b>
+                        <span style="color:{{offer.color}}">
+                         - {{offer.direction}}
+                        </span>
+                       </li>
+
+                    {% elif offer.postes and not offer.mob %}
+
+                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                        <b>
+                         <span style="color:black">
+                          <a href={{offer.url}}>
+                           <span style="color:{{offer.color}}; text-decoration:none">
+                            {{offer.postes}} - {{offer.title}}
+                           </span>
+                          </a>
+                         </span>
+                        </b>
+                        <span style="color:{{offer.color}}">
+                         - {{offer.direction}}
+                        </span>
+                       </li>
+
+                       {% else %}
+
+                       <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                        <b>
+                         <span style="color:black">
+                          <a href={{offer.url}}>
+                           <span style="color:{{offer.color}}; text-decoration:none">
+                            Mobilité - {{offer.postes}} - {{offer.title}}
+                           </span>
+                          </a>
+                         </span>
+                        </b>
+                        <span style="color:{{offer.color}}">
+                         - {{offer.direction}}
+                        </span>
+                       </li>
+
+                       {% endif %}
 
                 {% endfor %}
             </ul>
@@ -301,20 +358,75 @@ ul
           
             <ul style="margin-top:0cm" type="disc">
                 {% for offer in values %}
-                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
-                     <b>
-                      <span style="color:black">
-                       <a href={{offer.url}}>
-                        <span style="color:{{offer.color}}; text-decoration:none">
-                         {{offer.title}}
-                        </span>
-                       </a>
-                      </span>
-                     </b>
-                     <span style="color:{{offer.color}}">
-                      - {{offer.direction}}
+                {% if not offer.mob and not offer.postes %}
+
+                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                    <b>
+                     <span style="color:black">
+                      <a href={{offer.url}}>
+                       <span style="color:{{offer.color}}; text-decoration:none">
+                        {{offer.title}}
+                       </span>
+                      </a>
                      </span>
-                    </li>
+                    </b>
+                    <span style="color:{{offer.color}}">
+                     - {{offer.direction}} {{offer.ville}}
+                    </span>
+                   </li>
+
+                {% elif offer.mob and not offer.postes %}
+
+                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                    <b>
+                     <span style="color:black">
+                      <a href={{offer.url}}>
+                       <span style="color:{{offer.color}}; text-decoration:none">
+                        Mobilité - {{offer.title}}
+                       </span>
+                      </a>
+                     </span>
+                    </b>
+                    <span style="color:{{offer.color}}">
+                     - {{offer.direction}} {{offer.ville}}
+                    </span>
+                   </li>
+
+                {% elif offer.postes and not offer.mob %}
+
+                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                    <b>
+                     <span style="color:black">
+                      <a href={{offer.url}}>
+                       <span style="color:{{offer.color}}; text-decoration:none">
+                        {{offer.postes}} - {{offer.title}}
+                       </span>
+                      </a>
+                     </span>
+                    </b>
+                    <span style="color:{{offer.color}}">
+                     - {{offer.direction}} {{offer.ville}}
+                    </span>
+                   </li>
+
+                   {% else %}
+
+                   <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                    <b>
+                     <span style="color:black">
+                      <a href={{offer.url}}>
+                       <span style="color:{{offer.color}}; text-decoration:none">
+                        Mobilité - {{offer.postes}} - {{offer.title}}
+                       </span>
+                      </a>
+                     </span>
+                    </b>
+                    <span style="color:{{offer.color}}">
+                     - {{offer.direction}} {{offer.ville}}
+                    </span>
+                   </li>
+
+                   {% endif %}
                     
                  {% endfor %}
              </ul>

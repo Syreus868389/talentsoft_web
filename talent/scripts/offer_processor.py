@@ -73,9 +73,9 @@ class OfferProcessor:
         self.url = original_offer_url
 
     def offer_cleaner(self):
-        service = False
-        postes = False
-        mob = False
+        service = ""
+        postes = ""
+        mob = ""
         france_bleu = False
         text = self.title
         direction = self.direction
@@ -85,8 +85,10 @@ class OfferProcessor:
 
         if ":" in text:
             split_colon = text.split(":")
+
             if "postes" in split_colon[0]:
                 postes = split_colon[0]
+            
             text = split_colon[1]
 
         for suffix in suffixes:
@@ -151,7 +153,7 @@ class OfferProcessor:
         
         direction = direction.strip()
 
-        text = text.strip(" -")
+        text = text.strip(" -:")
         text = text.replace("  ", " ")
 
         for x, y in zip(replaced, replacements):
@@ -169,8 +171,14 @@ class OfferProcessor:
             text = text.replace("h/f", "H/F")   
 
         if france_bleu:
+            self.ville = ""
+            villes = []
             direction = direction.title()
             direction = article_lowcaser(direction)
+            for locale, ville in bleus_villes.items():
+                if locale in direction:
+                    villes.append(ville)
+                    self.ville = "(" + villes[0] + ")"
         
         else:
             err_drh = 'direction des ressources des humaines' 
@@ -234,7 +242,8 @@ def get_offers():
               postes = offer.postes,
               direction = offer.direction,
               mob = offer.mob,
-              creation_date = offer.creation_date
+              creation_date = offer.creation_date,
+              ville = offer.ville
             )
         else:
           offer_in_db = Offer(
