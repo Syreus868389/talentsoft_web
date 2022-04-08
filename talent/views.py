@@ -5,6 +5,8 @@ from talent.graph_helper import *
 from django.urls import reverse
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
+from talent.models import Offer, OfferFranceBleu
+from django.forms.models import model_to_dict
 
 # Create your views here.
 
@@ -62,12 +64,20 @@ def produce_draft(request):
   if user['is_authenticated']:
     referer = request.META.get('HTTP_REFERER')
     if referer == request.build_absolute_uri('/'):
+      offers_france_bleu = {}
+      offers_paris = {}
 
-      with open('talent/generated_offers.json') as json_file:
-        offers = json.load(json_file)
+      offer_model = Offer.objects.values()
+      offer_model_france_bleu = OfferFranceBleu.objects.values()
 
-      context['offers_france_bleu'] = offers['offers_france_bleu']
-      context['offers_paris'] = offers['offers_paris']
+      for i in offer_model_france_bleu:
+        offers_france_bleu.setdefault(i['cat'],[]).append(i)
+      for i in offer_model:
+        offers_paris.setdefault(i['cat'],[]).append(i)
+
+      context['offers_france_bleu'] = offers_france_bleu
+      context['offers_paris'] = offers_paris
+      print(context)
       email = render_to_string('email.html', context=context)
       token = get_token(request)
       draft_response = save_draft(token, email)

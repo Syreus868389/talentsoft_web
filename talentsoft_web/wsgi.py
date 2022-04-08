@@ -10,7 +10,13 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
+import environ
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'talentsoft_web.settings')
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+environ.Env.read_env()
+
+env('DJANGO_SETTINGS_MODULE')
 
 application = get_wsgi_application()

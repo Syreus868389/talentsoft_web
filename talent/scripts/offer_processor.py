@@ -1,14 +1,22 @@
 import re
 import string
+from turtle import color
 from spellchecker import SpellChecker
 from talent.resources import *
 import requests
 from talent.auth_helper import get_token_talentsoft
 import json
+import datetime
+from datetime import date
+from talent.models import Offer, OfferFranceBleu
 
 spell = SpellChecker(language='fr')
 
 spell.word_frequency.load_words(valid)
+
+today = date.today()
+old = datetime.timedelta(days=14)
+old_date = today - old
 
 def get_offers_base(token, count):
     offers = []
@@ -65,8 +73,8 @@ class OfferProcessor:
         self.url = original_offer_url
 
     def offer_cleaner(self):
-        service = ""
-        postes = ""
+        service = False
+        postes = False
         mob = False
         france_bleu = False
         text = self.title
@@ -165,6 +173,9 @@ class OfferProcessor:
             direction = article_lowcaser(direction)
         
         else:
+            err_drh = 'direction des ressources des humaines' 
+            if err_drh in direction:
+                direction = direction.replace(err_drh, "direction des ressources humaines")
             direction = highcaser(direction, capital)
             direction = highcaser(direction, syndicats, all_caps=True)
             direction = direction[0].upper() + direction[1:]
@@ -199,31 +210,47 @@ class OfferProcessor:
 
         self.cat = cat
         self.color = color
-
-        offer={"color": self.color, "postes": self.postes, "mob": self.mob, "url": self.url, "title": self.title, "direction": self.direction}
-
-        return offer
+        self.creation_date = today
 
 def get_offers():
+    
+    tables = [Offer, OfferFranceBleu]
+    
+    for table in tables:
+        old_offers = table.objects.all()
+        old_offers.delete()
 
     token_talentsoft = get_token_talentsoft()
     offers_base = get_offers_base(token_talentsoft, 50)
-    offers_france_bleu = {}
-    offers_paris = {}
     for offer in offers_base:
         direction = get_direction(offer)
         offer = OfferProcessor(offer['title'], direction, offer['offerUrl'])
-        cleaned_offer = offer.offer_cleaner()
+        offer.offer_cleaner()
         if offer.france_bleu:
-          offers_france_bleu.setdefault(offer.cat, []).append(cleaned_offer)
+          offer_in_db = OfferFranceBleu(
+              title = offer.title,
+              cat = offer.cat,
+              color = offer.color,
+              postes = offer.postes,
+              direction = offer.direction,
+              mob = offer.mob,
+              creation_date = offer.creation_date
+            )
         else:
-          offers_paris.setdefault(offer.cat, []).append(cleaned_offer)
-    return {"offers_paris": offers_paris, "offers_france_bleu": offers_france_bleu}
+          offer_in_db = Offer(
+              title = offer.title,
+              cat = offer.cat,
+              color = offer.color,
+              postes = offer.postes,
+              direction = offer.direction,
+              mob = offer.mob,
+              creation_date = offer.creation_date
+            )
+        
+        offer_in_db.save()
 
 def run():
-    offers = get_offers()
-    with open('talent/generated_offers.json', 'w') as file:
-        json.dump(offers, file)
+    get_offers()
     
 
 
