@@ -1,11 +1,9 @@
 import re
 import string
-from turtle import color
 from spellchecker import SpellChecker
 from talent.resources import *
 import requests
 from talent.auth_helper import get_token_talentsoft
-import json
 import datetime
 from datetime import date
 from talent.models import Offer, OfferFranceBleu
