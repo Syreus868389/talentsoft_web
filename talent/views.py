@@ -79,7 +79,8 @@ def produce_draft(request):
       context['offers_paris'] = offers_paris
 
       first = list(offers_paris.keys())[0]
-      print(context['offers_paris'][first][0]['creation_date'])
+      current_offers = context['offers_paris'][first][0]['creation_date']
+      print(f'Les offres ont été récupérées le {current_offers}')
       email = render_to_string('email.html', context=context)
       token = get_token(request)
       draft_response = save_draft(token, email)
