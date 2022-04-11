@@ -8,6 +8,7 @@ class Offer(models.Model):
     postes = models.CharField(max_length=300)
     mob = models.CharField(max_length=300)
     direction = models.CharField(max_length=300)
+    url = models.CharField(max_length=400)
 
 class OfferFranceBleu(models.Model):
     title = models.CharField(max_length=300)
@@ -18,3 +19,4 @@ class OfferFranceBleu(models.Model):
     mob = models.CharField(max_length=300)
     direction = models.CharField(max_length=300)
     ville = models.CharField(max_length=300)
+    url = models.CharField(max_length=400)

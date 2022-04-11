@@ -1,11 +1,12 @@
 black = "#000000"
 blue = "#283493"
 red = "#FF0000"
+orange = "#ff9000"
 
 suffixes = ["e", "ice", "trice", "rice", "euse", "se", "dtsi"]
 punctuation = [".", "-", "·"]
-replaced = ["parl", "assistante"]
-replacements = ["PARL", "assistant"]
+replaced = ["parl", "assistante", "méditérranée", 'direction des ressources des humaines']
+replacements = ["PARL", "assistant", "méditerranée", "direction des ressources humaines"]
 france_bleu_words = ["montbéliard", "ardenne", "orne", "eure","étienne"]
 articles = ["un", "une", "le", "la", "les", "aux", "du", "des", "à", "de", "d'", "et"]
 capital = ["radio france", "philharmonique", "orchestre national de france", "france culture", "france inter", "france musique", "mouv'", "france bleu"]

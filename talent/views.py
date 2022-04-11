@@ -4,9 +4,9 @@ from talent.auth_helper import get_sign_in_flow, get_token_from_code, store_user
 from talent.graph_helper import *
 from django.urls import reverse
 from django.template.loader import render_to_string
-from django.contrib.auth.decorators import login_required
 from talent.models import Offer, OfferFranceBleu
-from django.forms.models import model_to_dict
+from datetime import date
+import locale
 
 # Create your views here.
 
@@ -60,6 +60,12 @@ def sign_out(request):
 def produce_draft(request):
   context = initialize_context(request)
   user = context['user']
+  
+  locale.setlocale(locale.LC_ALL, 'fr_FR')
+  today = date.today()
+  date_fr = today.strftime('%A %d %B %Y')
+  
+  context['date_fr'] = date_fr
 
   if user['is_authenticated']:
     referer = request.META.get('HTTP_REFERER')
