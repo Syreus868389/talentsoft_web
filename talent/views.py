@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from talent.models import Offer, OfferFranceBleu
 from datetime import date
-import locale
 
 # Create your views here.
 
@@ -60,8 +59,6 @@ def sign_out(request):
 def produce_draft(request):
   context = initialize_context(request)
   user = context['user']
-  
-  locale.setlocale(locale.LC_ALL, 'fr_FR')
   today = date.today()
   date_fr = today.strftime('%A %d %B %Y')
   
