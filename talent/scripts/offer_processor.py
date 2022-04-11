@@ -4,18 +4,14 @@ from spellchecker import SpellChecker
 from talent.resources import *
 import requests
 from talent.auth_helper import get_token_talentsoft
-import datetime
-from datetime import date
+from datetime import datetime
 from talent.models import Offer, OfferFranceBleu
 
 spell = SpellChecker(language='fr')
 
 spell.word_frequency.load_words(valid)
 
-today = date.today()
-
-old = datetime.timedelta(days=14)
-old_date = today - old
+today = datetime.now()
 
 def get_offers_base(token, count):
     offers = []
@@ -219,7 +215,7 @@ class OfferProcessor:
 
         self.cat = cat
         self.color = color
-        self.creation_date = today
+        self.creation_date = today.strftime('%A %d %B %Y - %H:%M')
 
 def get_offers():
     
