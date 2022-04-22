@@ -5,6 +5,7 @@ from talent.graph_helper import *
 from django.urls import reverse
 from django.template.loader import render_to_string
 from talent.models import Offer, OfferFranceBleu
+from talent.soup import compare_prev
 from datetime import date
 
 # Create your views here.
@@ -68,17 +69,23 @@ def produce_draft(request):
     referer = request.META.get('HTTP_REFERER')
     if referer == request.build_absolute_uri('/'):
       token = get_token(request)
-      prev = get_previous_email(token)
-      print(prev)
       offers_france_bleu = {}
       offers_paris = {}
 
       offer_model = Offer.objects.values()
       offer_model_france_bleu = OfferFranceBleu.objects.values()
 
-      for i in offer_model_france_bleu:
+      prev = get_previous_email(token)
+      compared_offers = compare_prev(prev,[offer_model, offer_model_france_bleu])
+
+      compared_paris = compared_offers[0]
+      compared_france_bleu = compared_offers[1]
+
+      print(compared_paris)
+
+      for i in compared_france_bleu:
         offers_france_bleu.setdefault(i['cat'],[]).append(i)
-      for i in offer_model:
+      for i in compared_paris:
         offers_paris.setdefault(i['cat'],[]).append(i)
 
       context['offers_france_bleu'] = offers_france_bleu

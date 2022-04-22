@@ -220,7 +220,7 @@ ul
             </span>
 
             <b>
-                <span style='color:#283493' id='theme_block'>
+                <span style='color:#283493'>
                     {{key}}
                 </span>
             </b>
@@ -229,6 +229,16 @@ ul
         
             <ul style="margin-top:0cm" type="disc">
                 {% for offer in values %}
+
+                    {% if offer.last_week_content %}
+
+                    {% autoescape off %}
+    
+                        {{offer.last_week_content|safe}}
+
+                    {% endautoescape %}
+
+                    {% else %}
 
                     {% if not offer.mob and not offer.postes %}
 
@@ -299,6 +309,7 @@ ul
                        </li>
 
                        {% endif %}
+                       {% endif %}
 
                 {% endfor %}
             </ul>
@@ -349,7 +360,7 @@ ul
                 </span>
                 
                 <b>
-                    <span style='color:#283493' id="theme_block">
+                    <span style='color:#283493'>
                         {{key}}
                     </span>
                 </b>
@@ -358,7 +369,15 @@ ul
           
             <ul style="margin-top:0cm" type="disc">
                 {% for offer in values %}
-                {% if not offer.mob and not offer.postes %}
+                
+                {% if offer.present_last_week %}
+                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
+
+                    {{offer.last_week_content}}
+                
+                </li>
+
+                {% elif not offer.mob and not offer.postes %}
 
                 <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                     <b>
