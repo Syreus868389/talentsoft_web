@@ -67,6 +67,9 @@ def produce_draft(request):
   if user['is_authenticated']:
     referer = request.META.get('HTTP_REFERER')
     if referer == request.build_absolute_uri('/'):
+      token = get_token(request)
+      prev = get_previous_email(token)
+      print(prev)
       offers_france_bleu = {}
       offers_paris = {}
 
@@ -85,7 +88,6 @@ def produce_draft(request):
       current_offers = context['offers_paris'][first][0]['creation_date']
       print(f'Les offres ont été récupérées le {current_offers}')
       email = render_to_string('email.html', context=context)
-      token = get_token(request)
       draft_response = save_draft(token, email)
 
       context['draft_response'] = json.loads(draft_response)

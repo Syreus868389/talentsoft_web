@@ -220,7 +220,7 @@ ul
             </span>
 
             <b>
-                <span style='color:#283493'>
+                <span style='color:#283493' id='theme_block'>
                     {{key}}
                 </span>
             </b>
@@ -232,7 +232,7 @@ ul
 
                     {% if not offer.mob and not offer.postes %}
 
-                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                         <b>
                          <span style="color:black">
                           <a href={{offer.url}}>
@@ -249,7 +249,7 @@ ul
 
                     {% elif offer.mob and not offer.postes %}
 
-                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                         <b>
                          <span style="color:black">
                           <a href={{offer.url}}>
@@ -266,7 +266,7 @@ ul
 
                     {% elif offer.postes and not offer.mob %}
 
-                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                    <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                         <b>
                          <span style="color:black">
                           <a href={{offer.url}}>
@@ -283,7 +283,7 @@ ul
 
                        {% else %}
 
-                       <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                       <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                         <b>
                          <span style="color:black">
                           <a href={{offer.url}}>
@@ -349,7 +349,7 @@ ul
                 </span>
                 
                 <b>
-                    <span style='color:#283493'>
+                    <span style='color:#283493' id="theme_block">
                         {{key}}
                     </span>
                 </b>
@@ -360,7 +360,7 @@ ul
                 {% for offer in values %}
                 {% if not offer.mob and not offer.postes %}
 
-                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                     <b>
                      <span style="color:black">
                       <a href={{offer.url}}>
@@ -377,7 +377,7 @@ ul
 
                 {% elif offer.mob and not offer.postes %}
 
-                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                     <b>
                      <span style="color:black">
                       <a href={{offer.url}}>
@@ -394,7 +394,7 @@ ul
 
                 {% elif offer.postes and not offer.mob %}
 
-                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                     <b>
                      <span style="color:black">
                       <a href={{offer.url}}>
@@ -411,7 +411,7 @@ ul
 
                    {% else %}
 
-                   <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%">
+                   <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                     <b>
                      <span style="color:black">
                       <a href={{offer.url}}>

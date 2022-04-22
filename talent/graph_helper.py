@@ -17,6 +17,16 @@ def get_user(token):
   # Return the JSON result
   return user.json()
 
+def get_previous_email(token):
+  prev = requests.get('{0}/users/textoflashinfo@radiofrance.com/mailFolders/AQMkADUyMTVlNzBiLTA5MjUtNGYzZi04N2M0LTQ4YzE3MDUxY2U1YQAuAAADkG9IhG2sbkGrgBGxESAG7AEAE0lF7TDB8Ua0eQw7CjCi4wAAAc8-jAAAAA==/messages'.format(graph_url), headers={
+    'Authorization': 'Bearer {0}'.format(token),
+    'Content-Type': 'application/json'},
+    params={'$top':7, '$search':'Consultez'}
+  )
+  email = prev.json()['value'][0]['body']['content']
+  
+  return email
+
 def save_draft(token, body):
   body_json = {
       "subject":"Consultez les offres à pourvoir sur l’Espace Emploi de Radio France",
