@@ -1,22 +1,17 @@
 import re
 import string
-from turtle import color
 from spellchecker import SpellChecker
 from talent.resources import *
 import requests
 from talent.auth_helper import get_token_talentsoft
-import json
-import datetime
-from datetime import date
+from datetime import datetime
 from talent.models import Offer, OfferFranceBleu
 
 spell = SpellChecker(language='fr')
 
 spell.word_frequency.load_words(valid)
 
-today = date.today()
-old = datetime.timedelta(days=14)
-old_date = today - old
+today = datetime.now()
 
 def get_offers_base(token, count):
     offers = []
@@ -79,6 +74,8 @@ class OfferProcessor:
         france_bleu = False
         text = self.title
         direction = self.direction
+        color = ""
+        cat = []
 
         if "france bleu" in direction or "région" in direction:
             france_bleu = True
@@ -156,9 +153,29 @@ class OfferProcessor:
         text = text.strip(" -:")
         text = text.replace("  ", " ")
 
+        for key, values in labels.items():
+            for value in values:
+                if value in text:
+                    cat.append(key)
+        
+        cat = delete_duplicates(cat)
+        
+        if len(cat) == 1:
+            color = black
+        
+        elif len(cat) > 1:
+            color = red
+     
+        else:
+            cat.append("À catégoriser")
+            color = red
+
         for x, y in zip(replaced, replacements):
-            if x in text.lower():
+            if x in text:
                 text = text.replace(x, y)
+            if x in direction:
+                direction = direction.replace(x, y)
+
 
         text = text[0].upper() + text[1:]
 
@@ -179,11 +196,11 @@ class OfferProcessor:
                 if locale in direction:
                     villes.append(ville)
                     self.ville = "(" + villes[0] + ")"
+
+            if not self.ville:
+                color = orange
         
         else:
-            err_drh = 'direction des ressources des humaines' 
-            if err_drh in direction:
-                direction = direction.replace(err_drh, "direction des ressources humaines")
             direction = highcaser(direction, capital)
             direction = highcaser(direction, syndicats, all_caps=True)
             direction = direction[0].upper() + direction[1:]
@@ -194,31 +211,11 @@ class OfferProcessor:
         self.postes = postes
         self.france_bleu = france_bleu
 
-        color = ""
-        cat = []
-
-        for key, values in labels.items():
-            for value in values:
-                if value in self.title.lower():
-                    cat.append(key)
-        
-        cat = delete_duplicates(cat)
-        
-        if len(cat) == 1:
-            color = black
-        
-        elif len(cat) > 1:
-            color = red
-     
-        else:
-            cat.append("À catégoriser")
-            color = red
-
         cat = cat[0]
 
         self.cat = cat
         self.color = color
-        self.creation_date = today
+        self.creation_date = today.strftime('%A %d %B %Y - %H:%M')
 
 def get_offers():
     
@@ -243,7 +240,8 @@ def get_offers():
               direction = offer.direction,
               mob = offer.mob,
               creation_date = offer.creation_date,
-              ville = offer.ville
+              ville = offer.ville,
+              url = offer.url
             )
         else:
           offer_in_db = Offer(
@@ -253,7 +251,8 @@ def get_offers():
               postes = offer.postes,
               direction = offer.direction,
               mob = offer.mob,
-              creation_date = offer.creation_date
+              creation_date = offer.creation_date,
+              url = offer.url
             )
         
         offer_in_db.save()
