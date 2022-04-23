@@ -15,7 +15,7 @@ def compare_prev(html, offers_corpus):
                     for offer in offers:
                         if block.a:
                             if block.a.get("href") == offer['url']:
-                                offer['cat'] = new_cat
+                                offer['cat'] = new_cat.strip()
                                 offer['last_week_content'] = f'{block}'
 
     return offers_corpus
