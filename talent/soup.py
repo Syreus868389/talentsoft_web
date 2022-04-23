@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 
+#useless comment
+
 def compare_prev(html, offers_corpus):
 
     soup = BeautifulSoup(html)
