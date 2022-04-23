@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from talent.models import Offer, OfferFranceBleu
 from talent.soup import compare_prev
 from datetime import date
+import locale
 
 # Create your views here.
 
@@ -60,6 +61,7 @@ def sign_out(request):
 def produce_draft(request):
   context = initialize_context(request)
   user = context['user']
+  locale.setlocale(locale.LC_ALL, 'fr_FR')
   today = date.today()
   date_fr = today.strftime('%A %d %B %Y')
   
@@ -80,8 +82,6 @@ def produce_draft(request):
 
       compared_paris = compared_offers[0]
       compared_france_bleu = compared_offers[1]
-
-      print(compared_paris)
 
       for i in compared_france_bleu:
         offers_france_bleu.setdefault(i['cat'],[]).append(i)

@@ -210,7 +210,7 @@ ul
 
             <p class=xxxmsonormal style='margin-left:17.85pt;text-align:justify;
             text-indent:-17.85pt;line-height:105%;background:
-            #F2F2F2'>
+            #F2F2F2' id="theme_block">
             <span style='font-size:14.0pt;mso-bidi-font-size:
             12.0pt;line-height:105%'>
                 <span>
@@ -234,13 +234,11 @@ ul
 
                     {% autoescape off %}
     
-                        {{offer.last_week_content|safe}}
+                        {{offer.last_week_content}}
 
                     {% endautoescape %}
 
-                    {% else %}
-
-                    {% if not offer.mob and not offer.postes %}
+                    {% elif not offer.mob and not offer.postes %}
 
                     <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
                         <b>
@@ -309,7 +307,6 @@ ul
                        </li>
 
                        {% endif %}
-                       {% endif %}
 
                 {% endfor %}
             </ul>
@@ -350,7 +347,7 @@ ul
 
                 <p class=xxxmsonormal style='margin-left:17.85pt;text-align:justify;
                 text-indent:-17.85pt;line-height:105%;background:
-                #F2F2F2'>
+                #F2F2F2' id="theme_block">
                 <span style='font-size:14.0pt;mso-bidi-font-size:
                 12.0pt;line-height:105%'>
                     <span>
@@ -370,12 +367,13 @@ ul
             <ul style="margin-top:0cm" type="disc">
                 {% for offer in values %}
                 
-                {% if offer.present_last_week %}
-                <li class="MsoNormal" style="color:#000000; text-align:justify; line-height:105%" id="offer">
+                    {% if offer.last_week_content %}
 
-                    {{offer.last_week_content}}
-                
-                </li>
+                    {% autoescape off %}
+    
+                        {{offer.last_week_content}}
+
+                    {% endautoescape %}
 
                 {% elif not offer.mob and not offer.postes %}
 
