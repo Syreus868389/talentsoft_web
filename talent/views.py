@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from talent.models import Offer, OfferFranceBleu
 from talent.soup import compare_prev
 from datetime import date
-import locale
+from translate import translator
 
 # Create your views here.
 
@@ -61,9 +61,8 @@ def sign_out(request):
 def produce_draft(request):
   context = initialize_context(request)
   user = context['user']
-  locale.setlocale(locale.LC_ALL, 'fr_FR')
   today = date.today()
-  date_fr = today.strftime('%A %d %B %Y')
+  date_fr = translator("en", "fr", today.strftime('%A %d %B %Y'))
   
   context['date_fr'] = date_fr
 
