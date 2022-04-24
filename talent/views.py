@@ -62,7 +62,9 @@ def produce_draft(request):
   context = initialize_context(request)
   user = context['user']
   today = date.today()
-  date_fr = translator("en", "fr", today.strftime('%A %d %B %Y'))
+  date_fr = translator("en", "fr", today.strftime('%A %d %B %Y'))[0][0][0]
+
+  print(date_fr)
   
   context['date_fr'] = date_fr
 
