@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from talent.models import Offer, OfferFranceBleu
 from talent.soup import compare_prev
 from datetime import date
-from translate import translator
+from deep_translator import LibreTranslator
 
 # Create your views here.
 
@@ -62,7 +62,7 @@ def produce_draft(request):
   context = initialize_context(request)
   user = context['user']
   today = date.today()
-  date_fr = translator("en", "fr", today.strftime('%A %d %B %Y'))[0][0][0]
+  date_fr = LibreTranslator(source="en", target="fr").translate(today.strftime('%A %d %B %Y'))
 
   print(date_fr)
   
