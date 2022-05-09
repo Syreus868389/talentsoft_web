@@ -1,31 +1,37 @@
-  .loading {
-    width: 2px;
-    height: 2px;
-    display: none;
-    position: relative;
-    border-radius: 50%;
-    background: #fff;
-    margin-top: 3rem!important;
-    margin: 0 auto;
-    animation: wave 1s ease-in infinite;
-  }
-  
-  @keyframes wave {
-  0% {  box-shadow:
-  0 0 0 0px rgba(40, 52, 147, 1),
-  0 0 0 10px rgba(40, 52, 147, 0.2),
-  0 0 0 20px rgba(40, 52, 147, 0.6),
-  0 0 0 30px rgba(40, 52, 147, 0.4),
-  0 0 0 40px rgba(40, 52, 147, 0.2)
-  }
-  100% {  box-shadow:
-    0 0 0 40px rgba(40, 52, 147, 0.2),
-    0 0 0 30px rgba(40, 52, 147, 0.4),
-    0 0 0 20px rgba(40, 52, 147, 0.6),
-    0 0 0 10px rgba(40, 52, 147, 0.2),
-    0 0 0 0px rgba(40, 52, 147, 1)
-  }
-  }
+.loading {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #283493;
+  border-radius: 50%;
+  display: none;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
+  animation: pulse 1s linear infinite;
+}
+.loading:after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 5px solid #283493;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: scaleUp 1s linear infinite;
+}
+
+@keyframes scaleUp {
+  0% { transform: translate(-50%, -50%) scale(0) }
+  60% , 100% { transform: translate(-50%, -50%)  scale(1)}
+}
+@keyframes pulse {
+  0% , 60% , 100%{ transform:  scale(1) }
+  80% { transform:  scale(1.2)}
+}
 
 body {
     padding-top: 4.5rem;
