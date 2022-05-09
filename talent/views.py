@@ -6,9 +6,9 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from talent.models import Offer, OfferFranceBleu
 from talent.soup import compare_prev
-from datetime import date
+from datetime import date, datetime
 from deep_translator import LibreTranslator
-
+import pytz
 # Create your views here.
 
 def initialize_context(request):
@@ -93,8 +93,11 @@ def produce_draft(request):
       context['offers_paris'] = offers_paris
 
       first = list(offers_paris.keys())[0]
-      current_offers = context['offers_paris'][first][0]['creation_date']
-      print(f'Les offres ont été récupérées le {current_offers}')
+      tz = pytz.timezone('Europe/Paris')
+      offer_date = datetime.strptime(context['offers_paris'][first][0]['creation_date'], '%A %d %B %Y - %H:%M') 
+      aware_date = pytz.utc.localize(offer_date).astimezone(tz)
+      date_string = aware_date.strftime('%A %d %B %Y - %H:%M')
+      context['current_offers'] = LibreTranslator(source="en", target="fr").translate(date_string)
       email = render_to_string('email.html', context=context)
       draft_response = save_draft(token, email)
 

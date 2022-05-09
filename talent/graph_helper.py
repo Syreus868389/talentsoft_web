@@ -30,6 +30,11 @@ def get_previous_email(token):
 def save_draft(token, body):
   body_json = {
       "subject":"Consultez les offres à pourvoir sur l’Espace Emploi de Radio France",
+      "from": {
+        "emailAddress" : {
+          "address":"textoflashinfo@radiofrance.com"
+        }
+      },
       "body": {
         "contentType":"HTML",
         "content": body

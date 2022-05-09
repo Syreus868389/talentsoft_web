@@ -3,7 +3,8 @@
 <div class="jumbotron">
   {% if user.is_authenticated %}
   <p class="lead">Les offres en rouge sont à vérifier sur Talentsoft.<br>
-  Pour les offres en orange, il faut ajouter la ville du poste.</p>
+  Pour les offres en orange, il faut ajouter la ville du poste.<br>
+  Les offres ont été récupérées le {{current_offers}}</p>
     <a href="{{ draft_response.webLink }}" class="btn btn-primary btn-large">Accéder au brouillon</a>
     {% endif %}
 {% endblock %}
