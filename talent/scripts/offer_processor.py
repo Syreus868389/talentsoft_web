@@ -115,6 +115,11 @@ class OfferProcessor:
                     text = text.replace(part, "")
                     mob = True
 
+                for chiffre in postes:
+                    if chiffre in part:
+                        postes = chiffre
+                        text = text.replace(chiffre, "")
+
                 if "france bleu" in part or "fb" in part:
                     text = text.replace(part, "")
                     france_bleu = True
