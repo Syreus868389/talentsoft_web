@@ -61,46 +61,65 @@ def sign_out(request):
 def produce_draft(request):
   context = initialize_context(request)
   user = context['user']
+  # Get current date
   today = date.today()
+  # Translate date to French
   date_fr = LibreTranslator(source="en", target="fr").translate(today.strftime('%A %d %B %Y'))
-
-  print(date_fr)
   
+  # Add date to context
   context['date_fr'] = date_fr
 
   if user['is_authenticated']:
     referer = request.META.get('HTTP_REFERER')
     if referer == request.build_absolute_uri('/'):
       token = get_token(request)
+
+      # Initialize dictionaries
       offers_france_bleu = {}
       offers_paris = {}
 
+      # Get values from database
       offer_model = Offer.objects.values()
       offer_model_france_bleu = OfferFranceBleu.objects.values()
 
+      # Get previous offer email sent
       prev = get_previous_email(token)
+
+      # Compare current offers with those from last_week
       compared_offers = compare_prev(prev,[offer_model, offer_model_france_bleu])
 
       compared_paris = compared_offers[0]
       compared_france_bleu = compared_offers[1]
 
+      # Populate dictionaries according to categories
       for i in compared_france_bleu:
         offers_france_bleu.setdefault(i['cat'],[]).append(i)
       for i in compared_paris:
         offers_paris.setdefault(i['cat'],[]).append(i)
 
+      # Add offers to context
       context['offers_france_bleu'] = offers_france_bleu
       context['offers_paris'] = offers_paris
 
+      # Get first offer and see at what tume ot was retrieved
       first = list(offers_paris.keys())[0]
       tz = pytz.timezone('Europe/Paris')
       offer_date = datetime.strptime(context['offers_paris'][first][0]['creation_date'], '%A %d %B %Y - %H:%M') 
+
+      # Localize retrieval time
       aware_date = pytz.utc.localize(offer_date).astimezone(tz)
       date_string = aware_date.strftime('%A %d %B %Y - %H:%M')
+
+      # Translate datetime to French and add to context
       context['current_offers'] = LibreTranslator(source="en", target="fr").translate(date_string)
+
+      # Create HTML email
       email = render_to_string('email.html', context=context)
+
+      # Save draft in mailbox and get response
       draft_response = save_draft(token, email)
 
+      # Load responses in context
       context['draft_response'] = json.loads(draft_response)
 
       return render(request, 'response.html', context)

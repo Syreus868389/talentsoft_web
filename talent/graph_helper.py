@@ -18,6 +18,8 @@ def get_user(token):
   return user.json()
 
 def get_previous_email(token):
+
+  # Get the last offer email that was sent
   prev = requests.get('{0}/users/textoflashinfo@radiofrance.com/mailFolders/AQMkADUyMTVlNzBiLTA5MjUtNGYzZi04N2M0LTQ4YzE3MDUxY2U1YQAuAAADkG9IhG2sbkGrgBGxESAG7AEAE0lF7TDB8Ua0eQw7CjCi4wAAAc8-jAAAAA==/messages'.format(graph_url), headers={
     'Authorization': 'Bearer {0}'.format(token),
     'Content-Type': 'application/json'},
@@ -28,6 +30,8 @@ def get_previous_email(token):
   return email
 
 def save_draft(token, body):
+
+  # Create json body with all necessary information for draft email
   body_json = {
       "subject":"Consultez les offres à pourvoir sur l’Espace Emploi de Radio France",
       "from": {
@@ -91,6 +95,8 @@ def save_draft(token, body):
         }
       ]
   }
+
+  # Save draft to mailbox
   drafter = requests.post(
     '{0}/users/textoflashinfo@radiofrance.com/messages'.format(graph_url),
     headers={
@@ -99,4 +105,5 @@ def save_draft(token, body):
     }, json=body_json
   )
 
+  # Return POST response
   return drafter.text

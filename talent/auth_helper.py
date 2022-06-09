@@ -14,6 +14,7 @@ environ.Env.read_env()
 stream = open('oauth_settings.yml', 'r')
 settings = yaml.load(stream, yaml.SafeLoader)
 
+# Get token from Talentsoft
 def get_token_talentsoft ():
     client = BackendApplicationClient(client_id=env('client_id_talentsoft'))
     oauth = OAuth2Session(client=client)
